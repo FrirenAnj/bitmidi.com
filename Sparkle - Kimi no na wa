@@ -1,0 +1,29 @@
+from midiutil import MIDIFile
+
+# Create a MIDI file with one track
+track = 0
+time = 0  # Start at the beginning
+channel = 0
+volume = 100  # Max volume
+tempo = 120  # Beats per minute
+
+# Create a MIDIFile object with 1 track
+midi = MIDIFile(1)
+midi.addTempo(track, time, tempo)
+
+# Define a sequence of notes and durations
+melody = [
+    (60, 1), (62, 1), (64, 1), (65, 1),
+    (67, 1), (69, 1), (71, 1), (72, 2)  # C, D, E, F, G, A, B, C (higher octave)
+]
+
+# Add the notes to the track
+for note, duration in melody:
+    midi.addNote(track, channel, note, time, duration, volume)
+    time += duration  # Move forward by the duration of the note
+
+# Write the MIDI file to disk
+with open("complex_melody.mid", "wb") as output_file:
+    midi.writeFile(output_file)
+
+print("Complex MIDI file created successfully!")
